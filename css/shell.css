@@ -23,6 +23,46 @@ body.app::before {
   mask-image: radial-gradient(ellipse at 70% 10%, #000 10%, transparent 68%);
 }
 
+body.app:not([data-page="coach"]) {
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 22% 18%, rgba(224, 122, 47, 0.34), transparent 36%),
+    radial-gradient(ellipse at 78% 76%, rgba(154, 52, 14, 0.42), transparent 40%),
+    radial-gradient(ellipse at 50% 48%, rgba(224, 98, 32, 0.14), transparent 55%),
+    linear-gradient(155deg, #1c120c 0%, #090807 46%, #160e0a 100%);
+}
+
+body.app:not([data-page="coach"])::before,
+body.app:not([data-page="coach"])::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  mask-image: none;
+}
+
+body.app:not([data-page="coach"])::before {
+  opacity: 0.55;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(255, 220, 180, 0.55) 0.7px, transparent 1.5px),
+    radial-gradient(circle at 4px 4px, rgba(0, 0, 0, 0.65) 0.8px, transparent 1.7px);
+  background-size: 7px 7px, 7px 7px;
+}
+
+body.app:not([data-page="coach"])::after {
+  background:
+    linear-gradient(90deg, transparent 49.35%, rgba(8, 4, 2, 0.9) 49.7%, rgba(240, 170, 100, 0.35) 50%, rgba(8, 4, 2, 0.9) 50.3%, transparent 50.65%),
+    radial-gradient(ellipse 42% 78% at 8% 50%, transparent 68%, rgba(8, 4, 2, 0.82) 69.2%, rgba(240, 170, 100, 0.2) 69.8%, transparent 71.2%),
+    radial-gradient(ellipse 42% 78% at 92% 50%, transparent 68%, rgba(8, 4, 2, 0.82) 69.2%, rgba(240, 170, 100, 0.2) 69.8%, transparent 71.2%),
+    radial-gradient(ellipse 92% 36% at 50% 6%, transparent 66%, rgba(8, 4, 2, 0.75) 67.2%, transparent 68.8%),
+    radial-gradient(ellipse 92% 36% at 50% 94%, transparent 66%, rgba(8, 4, 2, 0.75) 67.2%, transparent 68.8%);
+}
+
+body.app:not([data-page="coach"]) .dock {
+  background: rgba(9, 8, 7, 0.78);
+}
+
 .dock {
   position: fixed;
   z-index: 50;
