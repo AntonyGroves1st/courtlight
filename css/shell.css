@@ -686,9 +686,9 @@ body.app:not([data-page="coach"]) .dock {
 }
 
 .rooms a {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 0.3rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
   text-decoration: none;
   color: inherit;
 }
@@ -1155,28 +1155,27 @@ body.app .board-filters .chip[aria-pressed="true"] {
     max-height: 128px;
   }
   .stage-fill .rooms {
-    flex: 1;
+    flex: none;
     max-width: none;
     min-height: 0;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto auto;
     gap: 0.75rem;
-    margin-top: 1.1rem;
+    margin-top: 0.85rem;
   }
   .stage-fill .rooms a {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto minmax(160px, 1fr) auto auto;
-    align-content: stretch;
-    height: 100%;
+    display: flex;
+    flex-direction: column;
+    height: auto;
     min-height: 0;
-    padding: 1rem 1rem 0.9rem;
+    padding: 0.85rem 1rem 0.8rem;
     border: 1px solid rgba(244, 239, 230, 0.12);
     border-top: 2px solid #e07a2f;
     background: rgba(0, 0, 0, 0.28);
   }
-  .stage-fill .rooms .film { width: 100%; height: 100%; min-height: 140px; }
+  .stage-fill .rooms a > b { margin-top: auto; padding-top: 0.35rem; }
+  body[data-page="programs"] .top-row .still img { height: 210px; }
   .stage-fill .rooms a:hover { border-color: rgba(224, 122, 47, 0.7); }
   .stage-fill .week-board { flex: 1; align-content: stretch; }
   .stage-fill .price-layout { flex: none; min-height: 0; align-items: stretch; }
@@ -1234,6 +1233,7 @@ body.app .board-filters .chip[aria-pressed="true"] {
   .week-row, .week-row-rest { grid-template-columns: 1fr; }
   .top-row { grid-template-columns: 1fr 1fr; }
   .top-row .still img { height: 280px; }
+  body[data-page="programs"] .top-row .still img { height: 180px; }
 }
 
 @media (min-width: 1280px) {
