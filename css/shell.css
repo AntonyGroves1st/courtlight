@@ -54,10 +54,12 @@ body.app:not([data-page="coach"]) .dock {
   position: fixed;
   z-index: 50;
   inset: 0 auto 0 0;
-  width: 420px;
+  width: 220px;
   display: flex;
   flex-direction: column;
-  padding: 1.3rem 1rem 1.1rem;
+  padding: 0.9rem 0.7rem 0.75rem;
+  overflow-x: hidden;
+  overflow-y: auto;
   background: rgba(9, 8, 7, 0.94);
   border-right: 1px solid rgba(224, 122, 47, 0.38);
   box-shadow: 16px 0 50px rgba(0, 0, 0, 0.35);
@@ -67,15 +69,15 @@ body.app:not([data-page="coach"]) .dock {
 .dock .logo {
   color: #f4efe6;
   padding: 0.15rem 0.35rem 0.7rem;
-  font-size: 3.1rem;
-  gap: 0.8rem;
+  font-size: 2.17rem;
+  gap: 0.55rem;
 }
-.dock .logo svg { width: 56px; height: 56px; }
+.dock .logo svg { width: 39px; height: 39px; }
 
 .dock-note {
   margin: 0 0.4rem 0.85rem;
   font-family: var(--mono);
-  font-size: 1.32rem;
+  font-size: 0.92rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: #c9844a;
@@ -90,20 +92,20 @@ body.app:not([data-page="coach"]) .dock {
 
 .dock .nav-links a {
   display: grid;
-  grid-template-columns: 3.6rem 1fr;
+  grid-template-columns: 2.5rem 1fr;
   align-items: baseline;
-  gap: 0.45rem;
-  min-height: 68px;
-  padding: 0.55rem 0.7rem;
+  gap: 0.35rem;
+  min-height: 48px;
+  padding: 0.4rem 0.5rem;
   text-decoration: none;
   color: rgba(244, 239, 230, 0.72);
   border-radius: 8px;
-  font-size: 1.9rem;
+  font-size: 1.33rem;
 }
 
 .dock .nav-links a span {
   font-family: var(--mono);
-  font-size: 1.32rem;
+  font-size: 0.92rem;
   letter-spacing: 0.06em;
   color: #c9844a;
 }
@@ -117,10 +119,10 @@ body.app:not([data-page="coach"]) .dock {
 }
 
 .dock-book { margin-top: auto; text-align: center; }
-.dock-book.btn, .dock .dock-book { font-size: 1.96rem; min-height: 68px; }
+.dock-book.btn, .dock .dock-book { font-size: 1.37rem; min-height: 48px; }
 
 .stage {
-  margin-left: 420px;
+  margin-left: 220px;
   max-width: none;
   min-height: 100dvh;
   padding: 1.35rem clamp(1.1rem, 3vw, 2.4rem) 2.2rem;
@@ -151,7 +153,7 @@ body.app:not([data-page="coach"]) .dock {
   margin: 0;
   max-width: none;
   white-space: nowrap;
-  font-size: clamp(1.35rem, calc((100vw - 470px) / 16), 4.6rem);
+  font-size: clamp(1.35rem, calc((100vw - 270px) / 16), 4.6rem);
   line-height: 1;
   color: #f4efe6;
 }
@@ -777,7 +779,7 @@ body.app:not([data-page="coach"]) .dock {
 .drill, .spec { list-style: none; margin: 0.35rem 0 0; padding: 0; }
 .clock .drill li {
   display: grid;
-  grid-template-columns: 6.6rem minmax(0, 1fr);
+  grid-template-columns: max-content minmax(0, 1fr);
   column-gap: 0.75rem;
   align-items: start;
   background: transparent;
@@ -796,6 +798,10 @@ body.app:not([data-page="coach"]) .dock {
   letter-spacing: 0.04em;
 }
 .spec li {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  column-gap: 0.75rem;
+  align-items: start;
   margin: 0;
   padding: 0.32rem 0;
   border-top: 1px solid rgba(244, 239, 230, 0.1);
@@ -804,6 +810,7 @@ body.app:not([data-page="coach"]) .dock {
   font-weight: 300;
   color: rgba(244, 239, 230, 0.8);
 }
+.spec b { display: block; min-width: 0; }
 .drill b, .spec b {
   display: inline-block;
   min-width: 4.6rem;
@@ -863,7 +870,7 @@ body.app:not([data-page="coach"]) .dock {
 .price-layout { display: grid; gap: 1.2rem; margin-top: 0.8rem; align-items: stretch; min-width: 0; max-width: 100%; }
 .fees, .fee-row, .price-card { min-width: 0; max-width: 100%; }
 .stage:has(.price-layout) { min-height: 100dvh; height: auto; overflow-x: hidden; }
-.stage:has(.price-layout) .page-title h1 { font-size: clamp(1.35rem, calc((100vw - 470px) / 18), 4rem); }
+.stage:has(.price-layout) .page-title h1 { font-size: clamp(1.35rem, calc((100vw - 270px) / 18), 4rem); }
 .stage:has(.price-layout) .fee-row h2 { font-size: clamp(1.35rem, 1.5vw, 1.7rem); }
 .stage:has(.price-layout) .fee-row p { font-size: clamp(0.98rem, 1.05vw, 1.12rem); line-height: 1.25; }
 .stage:has(.price-layout) .fee-row strong { font-size: clamp(1.8rem, 2.2vw, 2.4rem); }
@@ -1175,8 +1182,17 @@ body.app .board-filters .chip[aria-pressed="true"] {
     background: rgba(0, 0, 0, 0.28);
   }
   .stage-fill .rooms a > b { margin-top: auto; padding-top: 0.35rem; }
-  body[data-page="programs"] .top-row .still img { height: 280px; }
-  body[data-page="programs"] .top-row figure:nth-child(3) img { object-position: 32% 16%; }
+  body[data-page="programs"] main,
+  body[data-page="programs"] .top-row,
+  body[data-page="programs"] .rooms { width: 100%; max-width: none; }
+  body[data-page="programs"] .top-row .still img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4;
+    max-height: 68vh;
+    object-fit: cover;
+    object-position: center 18%;
+  }
   .stage-fill .rooms a:hover { border-color: rgba(224, 122, 47, 0.7); }
   .stage-fill .week-board { flex: 1; align-content: stretch; }
   .stage-fill .price-layout { flex: none; min-height: 0; align-items: stretch; }
@@ -1200,7 +1216,7 @@ body.app .board-filters .chip[aria-pressed="true"] {
   .dock {
     transform: translateX(-105%);
     transition: transform 0.25s ease;
-    width: min(92vw, 440px);
+    width: min(92vw, 308px);
   }
   body.nav-open .dock { transform: none; }
   .dock .nav-links,
@@ -1234,7 +1250,7 @@ body.app .board-filters .chip[aria-pressed="true"] {
   .week-row, .week-row-rest { grid-template-columns: 1fr; }
   .top-row { grid-template-columns: 1fr 1fr; }
   .top-row .still img { height: 280px; }
-  body[data-page="programs"] .top-row .still img { height: 180px; }
+  body[data-page="programs"] .top-row .still img { height: auto; aspect-ratio: 3 / 4; }
 }
 
 @media (min-width: 1280px) {
