@@ -54,7 +54,7 @@ body.app:not([data-page="coach"]) .dock {
   position: fixed;
   z-index: 50;
   inset: 0 auto 0 0;
-  width: 294px;
+  width: 220px;
   display: flex;
   flex-direction: column;
   padding: 0.9rem 0.7rem 0.75rem;
@@ -120,7 +120,7 @@ body.app:not([data-page="coach"]) .dock {
 .dock-book.btn, .dock .dock-book { font-size: 1.37rem; min-height: 48px; }
 
 .stage {
-  margin-left: 294px;
+  margin-left: 220px;
   max-width: none;
   min-height: 100dvh;
   padding: 1.35rem clamp(1.1rem, 3vw, 2.4rem) 2.2rem;
@@ -151,7 +151,7 @@ body.app:not([data-page="coach"]) .dock {
   margin: 0;
   max-width: none;
   white-space: nowrap;
-  font-size: clamp(1.35rem, calc((100vw - 344px) / 16), 4.6rem);
+  font-size: clamp(1.35rem, calc((100vw - 270px) / 16), 4.6rem);
   line-height: 1;
   color: #f4efe6;
 }
@@ -777,7 +777,7 @@ body.app:not([data-page="coach"]) .dock {
 .drill, .spec { list-style: none; margin: 0.35rem 0 0; padding: 0; }
 .clock .drill li {
   display: grid;
-  grid-template-columns: 6.6rem minmax(0, 1fr);
+  grid-template-columns: max-content minmax(0, 1fr);
   column-gap: 0.75rem;
   align-items: start;
   background: transparent;
@@ -797,7 +797,7 @@ body.app:not([data-page="coach"]) .dock {
 }
 .spec li {
   display: grid;
-  grid-template-columns: 4.6rem minmax(0, 1fr);
+  grid-template-columns: max-content minmax(0, 1fr);
   column-gap: 0.75rem;
   align-items: start;
   margin: 0;
@@ -868,7 +868,7 @@ body.app:not([data-page="coach"]) .dock {
 .price-layout { display: grid; gap: 1.2rem; margin-top: 0.8rem; align-items: stretch; min-width: 0; max-width: 100%; }
 .fees, .fee-row, .price-card { min-width: 0; max-width: 100%; }
 .stage:has(.price-layout) { min-height: 100dvh; height: auto; overflow-x: hidden; }
-.stage:has(.price-layout) .page-title h1 { font-size: clamp(1.35rem, calc((100vw - 344px) / 18), 4rem); }
+.stage:has(.price-layout) .page-title h1 { font-size: clamp(1.35rem, calc((100vw - 270px) / 18), 4rem); }
 .stage:has(.price-layout) .fee-row h2 { font-size: clamp(1.35rem, 1.5vw, 1.7rem); }
 .stage:has(.price-layout) .fee-row p { font-size: clamp(0.98rem, 1.05vw, 1.12rem); line-height: 1.25; }
 .stage:has(.price-layout) .fee-row strong { font-size: clamp(1.8rem, 2.2vw, 2.4rem); }
