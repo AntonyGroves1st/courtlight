@@ -783,13 +783,24 @@ body.app:not([data-page="coach"]) .dock {
 .day-film { display: block; width: 100%; margin-top: 0.55rem; flex: 1 1 160px; min-height: 160px; }
 .drill, .spec { list-style: none; margin: 0.35rem 0 0; padding: 0; }
 .clock .drill li {
+  display: grid;
+  grid-template-columns: 6.6rem minmax(0, 1fr);
+  column-gap: 0.75rem;
+  align-items: start;
   background: transparent;
   border-top: 1px solid rgba(244, 239, 230, 0.12);
-  color: rgba(244, 239, 230, 0.84);
-  padding: 0.34rem 0;
-  font-size: 0.95rem;
+  color: rgba(244, 239, 230, 0.88);
+  padding: 0.48rem 0;
+  font-size: 1rem;
   line-height: 1.35;
   font-weight: 300;
+}
+.clock .drill b {
+  display: block;
+  min-width: 0;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  letter-spacing: 0.04em;
 }
 .spec li {
   margin: 0;
