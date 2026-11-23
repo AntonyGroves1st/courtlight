@@ -796,6 +796,10 @@ body.app:not([data-page="coach"]) .dock {
   letter-spacing: 0.04em;
 }
 .spec li {
+  display: grid;
+  grid-template-columns: 4.6rem minmax(0, 1fr);
+  column-gap: 0.75rem;
+  align-items: start;
   margin: 0;
   padding: 0.32rem 0;
   border-top: 1px solid rgba(244, 239, 230, 0.1);
@@ -804,6 +808,7 @@ body.app:not([data-page="coach"]) .dock {
   font-weight: 300;
   color: rgba(244, 239, 230, 0.8);
 }
+.spec b { display: block; min-width: 0; }
 .drill b, .spec b {
   display: inline-block;
   min-width: 4.6rem;
