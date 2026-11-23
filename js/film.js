@@ -340,51 +340,44 @@
 
   function blocks(ctx, w, h, t) {
     const cx = w * 0.5;
-    const cy = h * 0.52;
-    const r = Math.max(36, Math.min(w * 0.36, h * 0.34));
+    const cy = h * 0.46;
+    const numSize = Math.max(14, Math.min(20, Math.min(w, h) * 0.055));
+    const numGap = numSize + 14;
+    const r = Math.max(78, Math.min(w * 0.5 - numGap - 6, h * 0.5 - numGap - 18));
     const turn = wrap(t, 9) / 9;
     const session = Math.min(7, Math.floor(turn * 8));
     const local = (turn * 8) % 1;
-    const glow = ctx.createRadialGradient(cx, cy, r * 0.1, cx, cy, r * 1.25);
-    glow.addColorStop(0, "rgba(224, 122, 47, 0.22)");
+
+    const glow = ctx.createRadialGradient(cx, cy, r * 0.2, cx, cy, r * 1.15);
+    glow.addColorStop(0, "rgba(224, 122, 47, 0.2)");
     glow.addColorStop(1, "rgba(224, 122, 47, 0)");
     ctx.fillStyle = glow;
     ctx.beginPath();
-    ctx.arc(cx, cy, r * 1.25, 0, Math.PI * 2);
+    ctx.arc(cx, cy, r * 1.15, 0, Math.PI * 2);
     ctx.fill();
-
-    ctx.save();
-    ctx.translate(cx, cy + r * 0.78);
-    ctx.scale(1.35, 0.26);
-    ctx.beginPath();
-    ctx.arc(0, 0, r * 0.9, 0, Math.PI * 2);
-    ctx.strokeStyle = "rgba(224, 122, 47, 0.4)";
-    ctx.lineWidth = 2;
-    ctx.stroke();
-    ctx.restore();
 
     ctx.beginPath();
     ctx.arc(cx, cy, r, 0, Math.PI * 2);
-    ctx.strokeStyle = "rgba(244, 239, 230, 0.14)";
-    ctx.lineWidth = Math.max(8, r * 0.045);
+    ctx.strokeStyle = "rgba(244, 239, 230, 0.16)";
+    ctx.lineWidth = Math.max(7, r * 0.04);
     ctx.stroke();
 
     ctx.beginPath();
     ctx.arc(cx, cy, r, -Math.PI / 2, -Math.PI / 2 + local * Math.PI * 2);
     ctx.strokeStyle = AMBER;
     ctx.shadowColor = "rgba(224, 122, 47, 0.85)";
-    ctx.shadowBlur = 16;
+    ctx.shadowBlur = 14;
     ctx.stroke();
     ctx.shadowBlur = 0;
 
     for (let i = 0; i < 50; i += 1) {
       const a = -Math.PI / 2 + (i / 50) * Math.PI * 2;
-      const inner = i % 5 === 0 ? r - 14 : r - 8;
+      const tick = i % 5 === 0 ? r * 0.11 : r * 0.06;
       ctx.strokeStyle = "rgba(244, 239, 230, 0.28)";
       ctx.lineWidth = 1;
       ctx.beginPath();
-      ctx.moveTo(cx + Math.cos(a) * inner, cy + Math.sin(a) * inner);
-      ctx.lineTo(cx + Math.cos(a) * (r - 3), cy + Math.sin(a) * (r - 3));
+      ctx.moveTo(cx + Math.cos(a) * (r - tick), cy + Math.sin(a) * (r - tick));
+      ctx.lineTo(cx + Math.cos(a) * (r - 4), cy + Math.sin(a) * (r - 4));
       ctx.stroke();
     }
 
@@ -394,54 +387,72 @@
       const y = cy + Math.sin(a) * r;
       const hot = i === session;
       const sealed = i < session;
+      const dot = hot ? r * 0.07 : r * 0.045;
       ctx.beginPath();
-      ctx.arc(x, y, hot ? Math.min(10, r * 0.12) : Math.min(6, r * 0.08), 0, Math.PI * 2);
+      ctx.arc(x, y, dot, 0, Math.PI * 2);
       ctx.fillStyle = hot || sealed ? AMBER : "rgba(244, 239, 230, 0.18)";
       ctx.fill();
       if (hot) {
         ctx.beginPath();
-        ctx.arc(x, y, 18 + local * 14, 0, Math.PI * 2);
+        ctx.arc(x, y, dot + 8 + local * 10, 0, Math.PI * 2);
         ctx.strokeStyle = AMBER;
         ctx.lineWidth = 1.5;
         ctx.globalAlpha = 1 - local;
         ctx.stroke();
         ctx.globalAlpha = 1;
       }
-      label(ctx, String(i + 1), cx + Math.cos(a) * (r + Math.min(18, r * 0.28)), cy + Math.sin(a) * (r + Math.min(18, r * 0.28)), Math.min(12, r * 0.16), hot ? "#fff4ea" : DIM);
+      label(ctx, String(i + 1), cx + Math.cos(a) * (r + numGap * 0.72), cy + Math.sin(a) * (r + numGap * 0.72), numSize, hot ? "#fff4ea" : DIM);
     }
+
+    ctx.save();
+    ctx.translate(cx, cy + r + numGap + 8);
+    ctx.scale(1.35, 0.22);
+    ctx.beginPath();
+    ctx.arc(0, 0, r * 0.72, 0, Math.PI * 2);
+    ctx.strokeStyle = "rgba(224, 122, 47, 0.45)";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    ctx.restore();
 
     const shot = ease(Math.min(1, Math.max(0, (local - 0.12) / 0.7)));
     const rimX = cx;
-    const rimY = cy - r * 0.08;
-    const y0 = cy + r * 0.42;
+    const rimY = cy - r * 0.62;
+    const y0 = cy - r * 0.22;
     const x = cx;
-    const y = lerp(y0, rimY, shot) - Math.sin(shot * Math.PI) * r * 0.62;
+    const y = lerp(y0, rimY, shot) - Math.sin(shot * Math.PI) * r * 0.16;
     ctx.strokeStyle = "rgba(224, 122, 47, 0.35)";
     ctx.lineWidth = 1.4;
     ctx.beginPath();
     ctx.moveTo(cx, y0);
-    ctx.quadraticCurveTo(cx + r * 0.28, cy - r * 0.2, rimX, rimY);
+    ctx.quadraticCurveTo(cx + r * 0.16, cy - r * 0.5, rimX, rimY);
     ctx.stroke();
     ctx.strokeStyle = AMBER;
     ctx.lineWidth = 3;
     ctx.beginPath();
-    ctx.ellipse(rimX, rimY, Math.max(10, r * 0.2), Math.max(4, r * 0.06), 0, Math.PI, 0);
+    ctx.ellipse(rimX, rimY, r * 0.16, r * 0.045, 0, Math.PI, 0);
     ctx.stroke();
     if (shot > 0.78) {
       const k = (shot - 0.78) / 0.22;
       ctx.globalAlpha = 1 - k * 0.65;
       ctx.beginPath();
-      ctx.moveTo(rimX - 16, rimY + 2);
-      ctx.quadraticCurveTo(rimX, rimY + 22 + k * 18, rimX + 16, rimY + 2);
+      ctx.moveTo(rimX - r * 0.1, rimY + 2);
+      ctx.quadraticCurveTo(rimX, rimY + r * 0.12 + k * 10, rimX + r * 0.1, rimY + 2);
       ctx.stroke();
       ctx.globalAlpha = 1;
     }
-    ball(ctx, x, y, Math.max(8, r * 0.045));
+    ball(ctx, x, y, Math.max(6, r * 0.04));
 
-    const big = Math.min(r * 0.62, 52);
-    label(ctx, "50", cx, cy + r * 0.02, big, AMBER);
-    label(ctx, "MINUTES", cx, cy + big * 0.55, Math.max(9, big * 0.22), CREAM);
-    label(ctx, `${session + 1} OF 8`, cx, cy - big * 0.55, Math.max(10, big * 0.24), "#f4efe6");
+    const ofSize = Math.max(13, r * 0.14);
+    const big = Math.min(r * 0.42, 68);
+    const minSize = Math.max(12, r * 0.12);
+    const gap = Math.max(8, r * 0.07);
+    const stack = ofSize + big + minSize + gap * 2;
+    let top = cy - stack / 2 + r * 0.06;
+    label(ctx, `${session + 1} OF 8`, cx, top + ofSize / 2, ofSize, "#f4efe6");
+    top += ofSize + gap;
+    label(ctx, "50", cx, top + big / 2, big, AMBER);
+    top += big + gap;
+    label(ctx, "MINUTES", cx, top + minSize / 2, minSize, CREAM);
   }
 
   function once(ctx, w, h, t) {
