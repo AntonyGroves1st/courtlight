@@ -1257,6 +1257,34 @@ body.app .board-filters .chip[aria-pressed="true"] {
   .stage-fill .day-film { flex: 1 1 160px; min-height: 160px; }
 }
 
+/* Schedule board only. The day names and session lines were display size, so the time marks collided and clipped. */
+body[data-page="schedule"] .page-title:has(+ .board-head) .lede { font-size: 1.12rem; }
+body[data-page="schedule"] .board-count { font-size: 0.88rem; }
+body[data-page="schedule"] .board-filters .chip { font-size: 0.92rem; min-height: 36px; padding: 0 0.85rem; }
+body[data-page="schedule"] .stage-fill .week-board { flex: none; }
+body[data-page="schedule"] .stage-fill .week-row { flex: none; height: auto; }
+body[data-page="schedule"] .day-col,
+body[data-page="schedule"] .sunday-col { height: auto; overflow: hidden; }
+body[data-page="schedule"] .day-col header,
+body[data-page="schedule"] .sunday-col > span { font-size: 2.15rem; }
+body[data-page="schedule"] .day-quiet { font-size: 1.15rem; }
+body[data-page="schedule"] .sess { margin-top: 0.5rem; }
+body[data-page="schedule"] .sess time { font-size: 0.95rem; }
+body[data-page="schedule"] .sess h3 { font-size: 1.45rem; }
+body[data-page="schedule"] .sess p,
+body[data-page="schedule"] .sunday-col p { font-size: 1.02rem; }
+body[data-page="schedule"] .sess span { font-size: 0.82rem; }
+body[data-page="schedule"] .sunday-col strong { font-size: 1.9rem; }
+body[data-page="schedule"] .day-film,
+body[data-page="schedule"] .stage-fill .day-film {
+  flex: none;
+  width: 100%;
+  height: 112px;
+  min-height: 112px;
+  max-height: 112px;
+  margin-top: auto;
+}
+
 /* Office */
 body.office { background: #e7dfd2; color: #17140f; color-scheme: light; height: 100dvh; overflow: hidden; }
 body.office::before { display: none; }

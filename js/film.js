@@ -624,12 +624,13 @@
   }
 
   function day(ctx, w, h, t, times) {
-    const start = 15;
-    const end = 21;
-    const tall = h > 110;
+    const marks = times.length ? times : [16, 18, 20];
+    const start = Math.min(15, ...marks) - 0.5;
+    const end = Math.max(21, ...marks) + 0.5;
+    const tall = h > 96;
     const play = start + (wrap(t, 5) / 5) * (end - start);
     const mark = (hour, a, b) => a + ((hour - start) / (end - start)) * (b - a);
-    const type = Math.max(22, Math.min(40, h * 0.12));
+    const type = fit(ctx, "10:30", Math.max(44, w * 0.2), Math.min(13, Math.max(11, h * 0.1)), 10);
     if (tall) {
       const x = w * 0.36;
       const y0 = type * 0.8;
@@ -643,11 +644,11 @@
       [16, 18, 20].forEach((hour) => {
         const y = mark(hour, y0, y1);
         ctx.fillStyle = "rgba(224, 122, 47, 0.85)";
-        ctx.fillRect(x - 16, y - 2, 32, 4);
-        label(ctx, hour > 12 ? `${hour - 12}P` : `${hour}P`, x - 28, y, type, "#f4efe6", "right");
+        ctx.fillRect(x - 10, y - 1.5, 20, 3);
+        label(ctx, hour > 12 ? `${hour - 12}P` : `${hour}P`, x - 16, y, type, "#f4efe6", "right");
       });
       const py = mark(play, y0, y1);
-      const dot = Math.max(9, h * 0.035);
+      const dot = Math.max(5, Math.min(7, h * 0.04));
       ctx.fillStyle = AMBER;
       ctx.beginPath();
       ctx.arc(x, py, dot, 0, Math.PI * 2);
@@ -662,12 +663,12 @@
       times.forEach((hour) => {
         const y = mark(Math.max(start, Math.min(end, hour)), y0, y1);
         ctx.fillStyle = AMBER;
-        const bar = Math.max(7, h * 0.022);
-        ctx.fillRect(x - 8, y - bar / 2, 54, bar);
+        const bar = Math.max(4, Math.min(6, h * 0.02));
+        ctx.fillRect(x - 5, y - bar / 2, 28, bar);
         const clockHour = Math.floor(hour);
         const mins = Math.round((hour - clockHour) * 60);
         const showH = clockHour > 12 ? clockHour - 12 : clockHour;
-        label(ctx, `${showH}:${String(mins).padStart(2, "0")}`, x + 58, y, type, AMBER, "left");
+        label(ctx, `${showH}:${String(mins).padStart(2, "0")}`, x + 30, y, type, AMBER, "left");
       });
       return;
     }
@@ -693,9 +694,9 @@
 
   function dark(ctx, w, h, t) {
     const p = wrap(t, 5) / 5;
-    const tall = h > 110;
-    const type = Math.max(20, Math.min(32, h * 0.09));
-    const r = Math.max(12, h * 0.05);
+    const tall = h > 96;
+    const type = fit(ctx, "ONE LIGHT", Math.max(70, w * 0.42), Math.min(13, Math.max(11, h * 0.1)), 10);
+    const r = Math.max(6, Math.min(9, h * 0.045));
     [0, 1, 2].forEach((i) => {
       const alive = i === 2 || p < 0.22 + i * 0.22;
       const x = tall ? w * 0.3 : w * (0.28 + i * 0.22);
