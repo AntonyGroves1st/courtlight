@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /office.html
+
+Sitemap: https://antonygroves1st.github.io/courtlight/sitemap.xml

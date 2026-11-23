@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Office — Courtlight</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#14120f">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/site.css?v=12">
+  <link rel="stylesheet" href="css/shell.css?v=17">
+  <link rel="stylesheet" href="css/office.css?v=3">
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body class="office">
+  <div class="lock" id="lock">
+    <p class="eyebrow">Courtlight office</p>
+    <h1>The desk.</h1>
+    <form id="lock-form">
+      <label>Desk code
+        <input id="code" type="password" autocomplete="current-password" required>
+      </label>
+      <button class="btn" type="submit">Unlock</button>
+      <p class="fine" id="lock-note" style="color:rgba(243,238,230,.7)">The code on this desk is 4646.</p>
+    </form>
+  </div>
+  <div class="desk" id="desk" hidden>
+    <aside class="rail">
+      <a class="logo" href="index.html" aria-label="Back to the site">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M6 16h20M16 6c3.1 3.2 3.1 16.8 0 20M16 6c-3.1 3.2-3.1 16.8 0 20" fill="none" stroke="#e07a2f" stroke-width="1.35" stroke-linecap="round"/></svg>
+        <span>Courtlight</span>
+      </a>
+      <nav aria-label="Office">
+        <p class="rail-label">Desk</p>
+        <button type="button" data-view="home" class="is-on">Desk</button>
+        <button type="button" data-view="requests">Requests <em id="new-count"></em></button>
+        <p class="rail-label">Editor</p>
+        <button type="button" data-view="pages">Pages</button>
+        <button type="button" data-view="board">Timetable</button>
+        <button type="button" data-view="fees">Pricing</button>
+        <button type="button" data-view="payments">Payments</button>
+        <p class="rail-label">Marketing</p>
+        <button type="button" data-view="leads">Leads</button>
+        <button type="button" data-view="marketing">Marketing</button>
+        <p class="rail-label">Content</p>
+        <button type="button" data-view="seo">SEO</button>
+      </nav>
+      <button class="lock-out" type="button" id="lock-out">Lock the desk</button>
+    </aside>
+    <main class="desk-main">
+      <header class="desk-top">
+        <div>
+          <p class="desk-kicker" id="view-kicker">Desk</p>
+          <h1 id="view-title">Desk.</h1>
+        </div>
+        <time id="desk-clock"></time>
+      </header>
+      <section id="view-home"></section>
+      <section id="view-requests" hidden></section>
+      <section id="view-board" hidden></section>
+      <section id="view-fees" hidden></section>
+      <section id="view-pages" hidden></section>
+      <section id="view-payments" hidden></section>
+      <section id="view-leads" hidden></section>
+      <section id="view-marketing" hidden></section>
+      <section id="view-seo" hidden></section>
+    </main>
+  </div>
+  <script src="js/site.js?v=18"></script>
+  <script src="js/office.js?v=15"></script>
+</body>
+</html>

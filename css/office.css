@@ -1,0 +1,435 @@
+/* Desk. Dark admin. The rail stays put. The page scrolls. */
+
+body.office {
+  background: #0e1116;
+  color: #eceae4;
+  color-scheme: dark;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+body.office .desk {
+  height: 100dvh;
+  grid-template-columns: 232px 1fr;
+  background: #0e1116;
+}
+
+body.office .rail {
+  background: #0b0d12;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 1.1rem 0.85rem 1rem;
+  overflow: auto;
+}
+
+body.office .rail .logo {
+  font-size: 1.35rem;
+  color: #f4efe6;
+  padding: 0.2rem 0.45rem 0.8rem;
+}
+
+body.office .rail-label {
+  margin: 1rem 0.45rem 0.25rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8d8680;
+}
+
+body.office .rail nav {
+  display: flex;
+  flex-direction: column;
+  flex: none;
+  margin-top: 0.2rem;
+  gap: 0.15rem;
+}
+
+body.office .rail button {
+  flex: none;
+  min-height: 40px;
+  font-size: 1rem;
+  color: #d9d4cc;
+  border-radius: 8px;
+  text-align: left;
+}
+
+body.office .rail button.is-on {
+  background: #e07a2f;
+  color: #1a120c;
+}
+
+body.office .rail .lock-out {
+  color: #b7b1a8;
+  font-size: 0.95rem;
+}
+
+body.office .desk-main {
+  display: block;
+  height: 100dvh;
+  overflow: auto;
+  padding: 1.35rem 1.6rem 3rem;
+  background: #0e1116;
+  color: #eceae4;
+}
+
+body.office .desk-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+body.office .desk-kicker {
+  margin: 0 0 0.15rem;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #e07a2f;
+}
+
+body.office .desk-kicker::before { content: "— "; }
+
+body.office .desk-top h1 {
+  margin: 0;
+  font-size: clamp(3.4rem, 5vw, 4.6rem);
+  line-height: 0.9;
+  color: #f7f4ef;
+}
+
+body.office .desk-top time {
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  color: #b7b1a8;
+}
+
+body.office .admin-intro {
+  max-width: 62rem;
+  margin: 0 0 1rem;
+  font-size: 1.05rem;
+  line-height: 1.45;
+  color: #c8c2ba;
+}
+
+body.office .admin-tabs {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0 0 1rem;
+}
+
+body.office .admin-tabs button {
+  min-height: 40px;
+  padding: 0 0.95rem;
+  border: 0;
+  border-radius: 8px;
+  background: #1a1e27;
+  color: #eceae4;
+  font-size: 1rem;
+}
+
+body.office .admin-tabs button.is-on {
+  background: #e07a2f;
+  color: #1a120c;
+}
+
+body.office .admin-saved {
+  margin-left: auto;
+  color: #b7b1a8;
+  font-size: 0.95rem;
+}
+
+body.office .admin-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.7rem;
+  margin-bottom: 1rem;
+}
+
+body.office .admin-stats article,
+body.office .metric,
+body.office .admin-card,
+body.office .req,
+body.office .req-detail {
+  background: #171b22;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  color: #eceae4;
+}
+
+body.office .admin-stats article { padding: 0.85rem 1rem 1rem; }
+body.office .admin-stats span,
+body.office .metric span {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8d8680;
+}
+body.office .admin-stats b,
+body.office .metric b {
+  display: block;
+  margin-top: 0.35rem;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 2.6rem;
+  line-height: 0.9;
+  color: #f7f4ef;
+}
+
+body.office .metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.7rem;
+  margin: 0 0 1rem;
+}
+body.office .metric { padding: 0.85rem 1rem 1rem; border-top: 0; }
+
+body.office .admin-rows { display: grid; gap: 0.55rem; margin-bottom: 1rem; }
+body.office .admin-rows article {
+  display: grid;
+  grid-template-columns: 9rem 1fr auto;
+  gap: 1rem;
+  align-items: start;
+  padding: 0.85rem 1rem;
+  background: #171b22;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+}
+body.office .admin-rows b { font-size: 1rem; color: #f7f4ef; }
+body.office .admin-rows p,
+body.office .admin-rows strong { margin: 0; font-size: 1.02rem; line-height: 1.4; color: #c8c2ba; font-weight: 400; }
+body.office .admin-rows strong { display: block; color: #f7f4ef; font-size: 1.15rem; margin-bottom: 0.2rem; }
+body.office .admin-rows em { font-style: normal; font-size: 0.95rem; color: #b7b1a8; }
+body.office .admin-rows em.warn,
+body.office .admin-note { color: #e0a15a; }
+body.office .admin-rows em.bad { color: #e07a6a; }
+body.office .admin-note { margin: 0.35rem 0; font-size: 1rem; }
+
+body.office .admin-table-wrap {
+  margin-top: 0.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  overflow: auto;
+  background: #141820;
+}
+body.office .admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+}
+body.office .admin-table th {
+  text-align: left;
+  padding: 0.75rem 0.85rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8d8680;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+body.office .admin-table td {
+  padding: 0.85rem;
+  vertical-align: top;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  color: #d9d4cc;
+  line-height: 1.4;
+}
+body.office .admin-table strong { color: #f7f4ef; font-weight: 600; }
+body.office .admin-table tr.is-held td { opacity: 0.45; }
+body.office .seo-sheet td:last-child { max-width: 16rem; color: #b7b1a8; font-size: 0.95rem; }
+
+body.office .btn {
+  background: #e07a2f;
+  color: #1a120c;
+  min-height: 38px;
+  padding: 0 0.9rem;
+  font-size: 0.95rem;
+}
+body.office .btn.btn-line {
+  background: transparent;
+  color: #eceae4;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+body.office .desk-split,
+body.office .req-layout {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 0.8rem;
+  margin: 0;
+}
+body.office .req-detail { padding: 1rem 1.1rem; }
+body.office .req-detail h2 { margin: 0.2rem 0 0.5rem; color: #f7f4ef; }
+body.office .req-detail p { margin: 0.25rem 0; color: #d9d4cc; font-size: 1.05rem; }
+body.office .req {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.75rem 0.85rem;
+  margin-bottom: 0.45rem;
+  border-top: 0;
+}
+body.office .req.is-on { outline: 2px solid #e07a2f; }
+body.office .req strong { display: block; font-size: 1.1rem; color: #f7f4ef; }
+body.office .req small { color: #b7b1a8; font-size: 0.95rem; }
+body.office .mini-week { display: grid; gap: 0.45rem; }
+body.office .mini-week div {
+  padding: 0.7rem 0.8rem;
+  background: #171b22;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  color: #d9d4cc;
+  font-size: 1rem;
+}
+body.office .mini-week b { display: block; color: #f7f4ef; font-size: 1.15rem; }
+
+body.office .fee-edit {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7rem 1rem;
+  margin-top: 0.2rem;
+}
+body.office .fee-edit label { font-size: 1rem; color: #d9d4cc; }
+body.office .fee-edit input {
+  display: block;
+  width: 100%;
+  margin-top: 0.3rem;
+  padding: 0.55rem 0.7rem;
+  font-size: 1.15rem;
+  color: #f7f4ef;
+  background: #171b22;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+body.office .fee-edit .btn,
+body.office .fee-edit .fine { grid-column: 1 / -1; }
+body.office .fine { color: #b7b1a8; font-size: 1rem; }
+body.office .admin-card {
+  margin-top: 0.8rem;
+  padding: 1rem;
+}
+body.office .admin-card label { display: block; font-size: 1.05rem; color: #d9d4cc; }
+body.office .plan-note {
+  display: block;
+  width: 100%;
+  min-height: 7rem;
+  margin: 0.45rem 0 0.7rem;
+  padding: 0.7rem;
+  font-size: 1.05rem;
+  color: #f7f4ef;
+  background: #10141b;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+body.office .empty-desk { font-size: 1.15rem; color: #d9d4cc; }
+
+body.office.is-wp .desk-main { background: #f0f0f1; color: #1d2327; }
+body.office.is-wp .desk-top h1 {
+  color: #1d2327;
+  font-family: Outfit, sans-serif;
+  font-size: 1.45rem;
+  font-weight: 500;
+}
+body.office.is-wp .desk-kicker { color: #787c82; }
+body.office.is-wp #desk-clock { color: #50575e; }
+.wp-frame { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 16px; align-items: start; }
+.wp-canvas, .wp-side, .wp-list, .wp-gate {
+  background: #fff;
+  border: 1px solid #dcdcde;
+  color: #1d2327;
+}
+.wp-canvas, .wp-side, .wp-gate { padding: 16px 18px 20px; }
+.wp-back {
+  border: 0;
+  background: none;
+  color: #2271b1;
+  font: 600 0.95rem Outfit, sans-serif;
+  padding: 0 0 12px;
+  cursor: pointer;
+}
+.wp-title {
+  display: block;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: #1d2327;
+  font-family: "Instrument Serif", serif;
+  font-size: 2.5rem;
+  line-height: 1.15;
+  padding: 4px 0 12px;
+}
+.wp-body, .wp-field input, .wp-field select {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #8c8f94;
+  border-radius: 2px;
+  background: #fff;
+  color: #1d2327;
+  font: 1.05rem/1.45 Outfit, sans-serif;
+  padding: 8px 10px;
+}
+.wp-body { min-height: 180px; resize: vertical; }
+.wp-field { display: block; margin: 0 0 12px; font-size: 0.92rem; color: #1d2327; }
+.wp-field input, .wp-field select { margin-top: 4px; }
+.wp-side p { margin: 0 0 10px; font-weight: 600; }
+.wp-meta, .wp-side .fine, .wp-gate p { font-weight: 400; color: #50575e; font-size: 0.95rem; }
+.wp-check input, .wp-switch input {
+  width: 18px;
+  height: 18px;
+  min-height: 18px;
+  padding: 0;
+  flex: none;
+  border-radius: 3px;
+}
+.wp-update {
+  background: #2271b1;
+  color: #fff;
+  border: 0;
+  border-radius: 2px;
+  padding: 8px 14px;
+  font: 600 0.95rem Outfit, sans-serif;
+  cursor: pointer;
+}
+.wp-list table { width: 100%; border-collapse: collapse; }
+.wp-list th, .wp-list td {
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid #dcdcde;
+  vertical-align: top;
+  color: #1d2327;
+  font-size: 1rem;
+}
+.wp-list th { color: #50575e; font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; }
+.wp-edit {
+  border: 0;
+  background: none;
+  color: #2271b1;
+  font: 600 1.05rem Outfit, sans-serif;
+  padding: 0;
+  cursor: pointer;
+}
+.wp-list small { display: block; color: #787c82; font-size: 0.85rem; }
+.wp-gates { display: grid; gap: 12px; }
+.wp-gate header { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-bottom: 10px; }
+.wp-gate header strong { font-size: 1.15rem; }
+.wp-switch { margin: 0; }
+
+@media (max-width: 980px) {
+  .wp-frame { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 980px) {
+  body.office .desk { grid-template-columns: 1fr; height: auto; }
+  body.office { height: auto; overflow: auto; }
+  body.office .desk-main { height: auto; }
+  body.office .admin-stats,
+  body.office .metrics,
+  body.office .desk-split,
+  body.office .req-layout,
+  body.office .fee-edit,
+  body.office .admin-rows article { grid-template-columns: 1fr; }
+}
