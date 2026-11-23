@@ -719,6 +719,14 @@
     const canvas = job.canvas;
     const rect = canvas.getBoundingClientRect();
     if (rect.width < 8 || rect.height < 8) return;
+    // The bitmap size must not become the layout size. A canvas taller than
+    // the window is that feedback loop, so pin it and measure again.
+    if (rect.height > window.innerHeight) {
+      canvas.style.flex = "none";
+      canvas.style.height = "128px";
+      canvas.style.maxHeight = "128px";
+      return;
+    }
     const dpr = Math.min(window.devicePixelRatio || 1, 1.6);
     const w = Math.max(1, Math.round(rect.width * dpr));
     const h = Math.max(1, Math.round(rect.height * dpr));
