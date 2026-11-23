@@ -1305,6 +1305,49 @@ body[data-page="pricing"] .price-card {
   background: #100e0c;
 }
 
+/* Same solid sheet on the other pages. Home and Coach keep the pebble through the content. */
+body[data-page="method"] .top-row,
+body[data-page="programs"] .top-row,
+body[data-page="method"] .steps,
+body[data-page="method"] .clock,
+body[data-page="programs"] .rooms,
+body[data-page="schedule"] .board-head,
+body[data-page="schedule"] .week-board,
+body[data-page="book"] .book-layout {
+  background: #100e0c;
+}
+body[data-page="method"] .top-row,
+body[data-page="programs"] .top-row {
+  margin: 0.8rem 0 0;
+  padding: 1rem 1.05rem 0;
+}
+body[data-page="method"] .steps,
+body[data-page="method"] .stage-fill .steps {
+  margin-top: 0;
+  padding: 0.85rem 1.05rem 0.15rem;
+}
+body[data-page="method"] .clock,
+body[data-page="method"] .stage-fill .clock {
+  margin-top: 0;
+  padding: 0.35rem 1.05rem 1.15rem;
+}
+body[data-page="programs"] .rooms,
+body[data-page="programs"] .stage-fill .rooms {
+  margin-top: 0;
+  padding: 0.85rem 1.05rem 1.15rem;
+}
+body[data-page="schedule"] .board-head {
+  margin: 0.8rem 0 0;
+  padding: 1rem 1.05rem 0.35rem;
+}
+body[data-page="schedule"] .week-board {
+  margin-top: 0;
+  padding: 0.15rem 1.05rem 1.15rem;
+}
+body[data-page="book"] .book-layout {
+  padding: 1rem 1.05rem 1.15rem;
+}
+
 .order-cart {
   margin-top: auto;
   padding-top: 0.85rem;
