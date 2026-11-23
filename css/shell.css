@@ -1297,6 +1297,93 @@ body[data-page="pricing"] .stage-fill .price-card .film {
   max-height: none;
 }
 
+.order-cart {
+  margin-top: auto;
+  padding-top: 0.85rem;
+}
+.order-cart > p {
+  margin: 0 0 0.35rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #f0b27a;
+}
+.order-cart ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.order-cart li + li { border-top: 1px solid rgba(244, 239, 230, 0.1); }
+.order-cart button[data-order] {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.6rem;
+  align-items: center;
+  padding: 0.42rem 0.15rem;
+  border: 0;
+  background: transparent;
+  color: rgba(244, 239, 230, 0.88);
+  font: inherit;
+  font-size: 0.98rem;
+  text-align: left;
+  cursor: pointer;
+}
+.order-cart button[data-order] b {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.15rem;
+  color: #f0b27a;
+}
+.order-cart button[data-order][aria-pressed="true"] {
+  color: #f4efe6;
+  background: rgba(224, 122, 47, 0.16);
+}
+.order-sum {
+  margin: 0.45rem 0 0;
+  font-size: 0.92rem;
+  font-weight: 300;
+  color: rgba(244, 239, 230, 0.72);
+}
+.order-now {
+  width: 100%;
+  margin-top: 0.55rem;
+  min-height: 44px;
+  border: 0;
+  border-radius: 999px;
+  background: #e07a2f;
+  color: #1a140f;
+  font: inherit;
+  font-size: 1.05rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+.order-now:disabled { opacity: 0.38; cursor: default; }
+.order-now:not(:disabled):hover { background: #f0b27a; }
+.order-held {
+  margin: 0 0 0.9rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid rgba(224, 122, 47, 0.35);
+}
+.order-held p {
+  margin: 0 0 0.3rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #f0b27a;
+}
+.order-held ul { list-style: none; margin: 0; padding: 0; }
+.order-held li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.28rem 0;
+  font-size: 0.98rem;
+}
+.order-held b { font-family: var(--serif); font-weight: 400; color: #f0b27a; }
+
 /* Office */
 body.office { background: #e7dfd2; color: #17140f; color-scheme: light; height: 100dvh; overflow: hidden; }
 body.office::before { display: none; }

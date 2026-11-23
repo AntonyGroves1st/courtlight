@@ -23,7 +23,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/site.css?v=12">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <link rel="stylesheet" href="css/shell.css?v=59">
+  <link rel="stylesheet" href="css/shell.css?v=60">
   <script>document.documentElement.classList.add("js");</script>
 </head>
 <body class="app" data-page="pricing">
@@ -73,6 +73,19 @@
             <li>Illness with notice always moves</li>
             <li>Inside the window, the visit is used</li>
           </ul>
+          <div class="order-cart" id="order-cart">
+            <p>Order</p>
+            <ul>
+              <li><button type="button" data-order="private" data-order-block="privateBlock" data-program="Private session" aria-pressed="false"><span>Private</span><b>$95</b></button></li>
+              <li><button type="button" data-order="assessment" data-order-block="assessment" data-program="Assessment" aria-pressed="false"><span>Assessment</span><b>$90</b></button></li>
+              <li><button type="button" data-order="lab" data-order-block="labMonth" data-program="Shooting lab" aria-pressed="false"><span>Shooting lab</span><b>$35</b></button></li>
+              <li><button type="button" data-order="group" data-order-block="groupBlock" data-program="Small group" aria-pressed="false"><span>Small group</span><b>$40</b></button></li>
+              <li><button type="button" data-order="film" data-order-block="filmBlock" data-program="Film room" aria-pressed="false"><span>Film room</span><b>$70</b></button></li>
+              <li><button type="button" data-order="clinic" data-order-block="clinic" data-program="Team clinic" aria-pressed="false"><span>Team clinic</span><b>$400</b></button></li>
+            </ul>
+            <p class="order-sum" id="order-sum">Pick the hours you want.</p>
+            <button class="order-now" id="order-now" type="button" disabled>Order now</button>
+          </div>
         </section>
         <div class="fees">
           <article class="fee-row"><div><h2>Assessment</h2><p data-fee-note data-single="Once. Fifty minutes. Four stations, two priorities on the card." data-block="Once. Fifty minutes. Four stations, two priorities on the card.">Once. Fifty minutes. Four stations, two priorities on the card.</p><canvas class="film" data-film="once" aria-hidden="true"></canvas></div><strong data-fee="assessment" data-fee-block="assessment">$90</strong></article>
@@ -96,7 +109,7 @@
       <p>© <span data-year>2026</span> Courtlight</p>
     </footer>
   </div>
-  <script src="js/site.js?v=18"></script>
+  <script src="js/site.js?v=19"></script>
   <script src="js/film.js?v=21"></script>
 </body>
 </html>

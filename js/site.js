@@ -502,6 +502,24 @@ document.querySelectorAll(".chips").forEach((group) => {
 const programSelect = document.getElementById("program");
 const requested = new URLSearchParams(location.search).get("program");
 if (programSelect && requested) programSelect.value = requested;
+if (programSelect && !requested && document.getElementById("book-form")) {
+  try {
+    const order = JSON.parse(sessionStorage.getItem("courtlight-order") || "[]");
+    const safe = (value) => String(value ?? "").replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+    if (Array.isArray(order) && order.length) {
+      const box = document.createElement("div");
+      box.className = "order-held";
+      box.innerHTML = `<p>Your order</p><ul>${order.map((item) => `<li><span>${safe(item.name)}</span><b>${safe(item.price)}</b></li>`).join("")}</ul>`;
+      const ticketForm = document.getElementById("book-form");
+      ticketForm.insertBefore(box, ticketForm.firstChild);
+      if ([...programSelect.options].some((option) => option.value === order[0].program)) programSelect.value = order[0].program;
+      const noteField = document.getElementById("note");
+      if (noteField && !noteField.value && order.length > 1) {
+        noteField.value = order.map((item) => `${item.name} — ${item.price}`).join("\n");
+      }
+    }
+  } catch (error) { /* a bad saved order just leaves the form empty */ }
+}
 const form = document.getElementById("book-form");
 const formError = document.getElementById("form-error");
 const success = document.getElementById("book-success");
@@ -570,6 +588,7 @@ if (form) form.addEventListener("submit", (event) => {
     const pay = document.querySelector("input[name='pay']:checked");
     window.CourtlightStore.addRequest({ player, age, guardian, email, phone, program, days, focus, note, pay: pay ? pay.value : "desk" });
   }
+  sessionStorage.removeItem("courtlight-order");
   document.getElementById("success-title").textContent = `${player} is on the desk.`;
   const payLabel = document.querySelector("input[name='pay']:checked");
   const payText = payLabel ? payLabel.parentElement.textContent.trim() : "Pay when the visit is confirmed";
@@ -790,6 +809,14 @@ if (poster) {
     document.querySelectorAll("[data-fee-note]").forEach((node) => {
       node.textContent = mode === "block" ? node.dataset.block : node.dataset.single;
     });
+    document.querySelectorAll("[data-order]").forEach((node) => {
+      const feeKey = mode === "block" ? node.dataset.orderBlock : node.dataset.order;
+      const price = node.querySelector("b");
+      if (price && fees[feeKey] != null) price.textContent = money(fees[feeKey]);
+    });
+    const sum = document.getElementById("order-sum");
+    if (sum) sum.dataset.mode = mode;
+    paintOrder();
   };
   paintPrice("single");
   const switcher = document.querySelector(".price-switch");
@@ -805,6 +832,37 @@ if (poster) {
       paintPrice(button.dataset.mode);
     });
   }
+}
+
+function paintOrder() {
+  const sum = document.getElementById("order-sum");
+  const go = document.getElementById("order-now");
+  if (!sum || !go) return;
+  const picked = [...document.querySelectorAll("[data-order][aria-pressed='true']")];
+  const total = picked.reduce((n, node) => n + Number((node.querySelector("b").textContent || "").replace(/[^0-9.]/g, "")), 0);
+  sum.textContent = picked.length ? `${picked.length} selected · $${total}` : "Pick the hours you want.";
+  go.disabled = picked.length === 0;
+}
+
+const orderCart = document.getElementById("order-cart");
+if (orderCart) {
+  orderCart.addEventListener("click", (event) => {
+    const row = event.target.closest("[data-order]");
+    if (row) {
+      const on = row.getAttribute("aria-pressed") !== "true";
+      row.setAttribute("aria-pressed", String(on));
+      paintOrder();
+      return;
+    }
+    if (event.target.id !== "order-now" || event.target.disabled) return;
+    const order = [...orderCart.querySelectorAll("[data-order][aria-pressed='true']")].map((node) => ({
+      name: node.querySelector("span").textContent,
+      price: node.querySelector("b").textContent,
+      program: node.dataset.program
+    }));
+    sessionStorage.setItem("courtlight-order", JSON.stringify(order));
+    location.href = "book.html";
+  });
 }
 
 const publicBoard = document.getElementById("public-board");
