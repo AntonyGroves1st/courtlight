@@ -341,10 +341,11 @@
 
   function blocks(ctx, w, h, t) {
     const cx = w * 0.5;
-    const cy = h * 0.46;
-    const numSize = Math.max(14, Math.min(20, Math.min(w, h) * 0.055));
-    const numGap = numSize + 14;
-    const r = Math.max(78, Math.min(w * 0.5 - numGap - 6, h * 0.5 - numGap - 18));
+    const cy = h * 0.5;
+    const numSize = Math.max(12, Math.min(16, Math.min(w, h) * 0.042));
+    const numGap = numSize + 12;
+    const inset = numSize + 10;
+    const r = Math.max(64, Math.min(w * 0.5 - numGap - inset, h * 0.5 - numGap - inset));
     const sitting = 3.2;
     const turn = wrap(t, sitting * 8);
     const session = Math.min(7, Math.floor(turn / sitting));

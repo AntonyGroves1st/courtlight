@@ -1285,6 +1285,18 @@ body[data-page="schedule"] .stage-fill .day-film {
   margin-top: auto;
 }
 
+/* Pricing dial stays one size, so the private card matches on a narrow window and a wide one. */
+body[data-page="pricing"] .price-card .film,
+body[data-page="pricing"] .stage-fill .price-card .film {
+  align-self: center;
+  flex: none;
+  width: min(100%, 420px);
+  height: auto;
+  aspect-ratio: 1;
+  min-height: 0;
+  max-height: none;
+}
+
 /* Office */
 body.office { background: #e7dfd2; color: #17140f; color-scheme: light; height: 100dvh; overflow: hidden; }
 body.office::before { display: none; }
