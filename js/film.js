@@ -20,6 +20,17 @@
     ctx.fillText(text, x, y);
   }
 
+  function fit(ctx, text, maxW, preferred, min) {
+    let size = preferred;
+    const floor = min || 8;
+    while (size > floor) {
+      ctx.font = `500 ${size}px "DM Mono", ui-monospace, monospace`;
+      if (ctx.measureText(text).width <= maxW) break;
+      size -= 1;
+    }
+    return size;
+  }
+
   function ball(ctx, x, y, r) {
     ctx.fillStyle = "rgba(0,0,0,0.4)";
     ctx.beginPath();
@@ -329,8 +340,8 @@
 
   function blocks(ctx, w, h, t) {
     const cx = w * 0.5;
-    const cy = h * 0.54;
-    const r = Math.min(w * 0.4, h * 0.4);
+    const cy = h * 0.52;
+    const r = Math.max(36, Math.min(w * 0.36, h * 0.34));
     const turn = wrap(t, 9) / 9;
     const session = Math.min(7, Math.floor(turn * 8));
     const local = (turn * 8) % 1;
@@ -384,7 +395,7 @@
       const hot = i === session;
       const sealed = i < session;
       ctx.beginPath();
-      ctx.arc(x, y, hot ? 12 : 6.5, 0, Math.PI * 2);
+      ctx.arc(x, y, hot ? Math.min(10, r * 0.12) : Math.min(6, r * 0.08), 0, Math.PI * 2);
       ctx.fillStyle = hot || sealed ? AMBER : "rgba(244, 239, 230, 0.18)";
       ctx.fill();
       if (hot) {
@@ -396,7 +407,7 @@
         ctx.stroke();
         ctx.globalAlpha = 1;
       }
-      label(ctx, String(i + 1), cx + Math.cos(a) * (r + 26), cy + Math.sin(a) * (r + 26), 13, hot ? "#fff4ea" : DIM);
+      label(ctx, String(i + 1), cx + Math.cos(a) * (r + Math.min(18, r * 0.28)), cy + Math.sin(a) * (r + Math.min(18, r * 0.28)), Math.min(12, r * 0.16), hot ? "#fff4ea" : DIM);
     }
 
     const shot = ease(Math.min(1, Math.max(0, (local - 0.12) / 0.7)));
@@ -414,7 +425,7 @@
     ctx.strokeStyle = AMBER;
     ctx.lineWidth = 3;
     ctx.beginPath();
-    ctx.ellipse(rimX, rimY, Math.max(28, r * 0.16), 8, 0, Math.PI, 0);
+    ctx.ellipse(rimX, rimY, Math.max(10, r * 0.2), Math.max(4, r * 0.06), 0, Math.PI, 0);
     ctx.stroke();
     if (shot > 0.78) {
       const k = (shot - 0.78) / 0.22;
@@ -427,51 +438,56 @@
     }
     ball(ctx, x, y, Math.max(8, r * 0.045));
 
-    label(ctx, "50", cx, cy + r * 0.08, Math.max(48, r * 0.42), AMBER);
-    label(ctx, "MINUTES", cx, cy + r * 0.28, 12, CREAM);
-    label(ctx, `${session + 1} OF 8`, cx, cy - r * 0.22, 15, "#f4efe6");
+    const big = Math.min(r * 0.62, 52);
+    label(ctx, "50", cx, cy + r * 0.02, big, AMBER);
+    label(ctx, "MINUTES", cx, cy + big * 0.55, Math.max(9, big * 0.22), CREAM);
+    label(ctx, `${session + 1} OF 8`, cx, cy - big * 0.55, Math.max(10, big * 0.24), "#f4efe6");
   }
 
   function once(ctx, w, h, t) {
     const names = ["CATCH", "DRIBBLE", "CLOSEOUT", "FINISH"];
     const on = Math.floor(wrap(t, 3.6) / 0.9);
-    const gap = w / 5;
-    const type = Math.max(16, Math.min(28, h * 0.2));
-    const r = Math.max(18, Math.min(h * 0.28, 36));
+    const slot = w / names.length;
+    const type = fit(ctx, "CLOSEOUT", slot * 0.9, Math.min(13, h * 0.18), 8);
+    const r = Math.min(slot * 0.28, h * 0.22, 22);
     names.forEach((name, i) => {
-      const x = gap * (i + 1);
-      const y = h * 0.4;
+      const x = slot * (i + 0.5);
+      const y = h * 0.36;
       ctx.strokeStyle = i === on ? AMBER : DIM;
-      ctx.lineWidth = i === on ? 3 : 1.6;
+      ctx.lineWidth = i === on ? 2.4 : 1.4;
       ctx.beginPath();
       ctx.arc(x, y, r, 0, Math.PI * 2);
       ctx.stroke();
-      label(ctx, String(i + 1), x, y, type, i === on ? AMBER : CREAM);
-      label(ctx, name, x, y + r + type * 0.7, type * 0.72, i === on ? AMBER : CREAM);
+      label(ctx, String(i + 1), x, y, Math.max(11, type), i === on ? AMBER : CREAM);
+      label(ctx, name, x, Math.min(h - type * 0.55, y + r + type * 0.95), type, i === on ? AMBER : CREAM);
     });
   }
 
   function month(ctx, w, h, t) {
     const on = Math.floor(wrap(t, 3.6) / 0.9);
-    const type = Math.max(16, Math.min(26, h * 0.18));
+    const slot = w / 4;
+    const type = fit(ctx, "WK 4", slot * 0.62, Math.min(14, h * 0.18), 8);
+    const cap = fit(ctx, "SAME SHEET", w * 0.92, Math.min(13, h * 0.16), 8);
+    const top = h * 0.08;
+    const bh = Math.max(18, h * 0.5);
     for (let i = 0; i < 4; i += 1) {
-      const x = w * (0.16 + i * 0.22);
-      const bw = Math.max(52, w * 0.1);
-      const bh = h * 0.5;
+      const x = slot * (i + 0.5);
+      const bw = slot * 0.62;
       ctx.strokeStyle = i === on ? AMBER : DIM;
-      ctx.lineWidth = i === on ? 3 : 1.6;
-      ctx.strokeRect(x - bw / 2, h * 0.16, bw, bh);
-      label(ctx, `WK ${i + 1}`, x, h * 0.16 + bh / 2, type, i === on ? AMBER : CREAM);
+      ctx.lineWidth = i === on ? 2.4 : 1.4;
+      ctx.strokeRect(x - bw / 2, top, bw, bh);
+      label(ctx, `WK ${i + 1}`, x, top + bh / 2, type, i === on ? AMBER : CREAM);
     }
-    label(ctx, "SAME SHEET", w / 2, h * 0.84, type, AMBER);
+    label(ctx, "SAME SHEET", w / 2, h - cap * 0.65, cap, AMBER);
   }
 
   function split(ctx, w, h, t) {
     const slices = [3, 4, 6][Math.floor(wrap(t, 4.5) / 1.5)];
-    const cx = w * 0.28;
-    const cy = h * 0.5;
-    const r = Math.min(h * 0.42, w * 0.16);
-    const type = Math.max(16, Math.min(28, h * 0.2));
+    const type = fit(ctx, "6 PLAYERS", w * 0.48, Math.min(16, h * 0.2), 8);
+    const sub = fit(ctx, "EACH PAYS", w * 0.48, type * 0.85, 8);
+    const cx = w * 0.22;
+    const cy = h * 0.48;
+    const r = Math.min(h * 0.36, w * 0.16);
     for (let i = 0; i < slices; i += 1) {
       const a0 = -Math.PI / 2 + (i / slices) * Math.PI * 2;
       const a1 = a0 + (Math.PI * 2) / slices - 0.06;
@@ -482,37 +498,46 @@
       ctx.fillStyle = i % 2 ? AMBER : "rgba(224,122,47,0.4)";
       ctx.fill();
     }
-    label(ctx, `${slices} PLAYERS`, w * 0.62, cy - type * 0.3, type, CREAM, "left");
-    label(ctx, "EACH PAYS", w * 0.62, cy + type * 0.7, type * 0.8, AMBER, "left");
+    label(ctx, `${slices} PLAYERS`, w * 0.46, cy - sub * 0.7, type, CREAM, "left");
+    label(ctx, "EACH PAYS", w * 0.46, cy + type * 0.65, sub, AMBER, "left");
   }
 
   function sittings(ctx, w, h, t) {
     const show = Math.min(4, 1 + Math.floor(wrap(t, 3.6) / 0.9));
-    const type = Math.max(16, Math.min(28, h * 0.2));
+    const words = ["ONE SITTING", "TWO SITTINGS", "THREE SITTINGS", "FOUR SITTINGS"];
+    const slot = w / 4;
+    const type = fit(ctx, "4", slot * 0.5, Math.min(16, h * 0.2), 8);
+    const cap = fit(ctx, "THREE SITTINGS", w * 0.94, Math.min(13, h * 0.16), 8);
+    const top = h * 0.1;
+    const bh = Math.max(16, h * 0.46);
     for (let i = 0; i < 4; i += 1) {
-      const x = w * (0.16 + i * 0.2);
-      const bw = Math.max(44, w * 0.08);
-      const bh = h * 0.46;
+      const x = slot * (i + 0.5);
+      const bw = slot * 0.55;
       ctx.globalAlpha = i < show ? 1 : 0.28;
       ctx.strokeStyle = i < show ? AMBER : DIM;
-      ctx.lineWidth = i < show ? 3 : 1.6;
-      ctx.strokeRect(x - bw / 2, h * 0.14, bw, bh);
-      label(ctx, String(i + 1), x, h * 0.14 + bh / 2, type, i < show ? AMBER : CREAM);
+      ctx.lineWidth = i < show ? 2.4 : 1.4;
+      ctx.strokeRect(x - bw / 2, top, bw, bh);
+      label(ctx, String(i + 1), x, top + bh / 2, type, i < show ? AMBER : CREAM);
       ctx.globalAlpha = 1;
     }
-    const words = ["ONE SITTING", "TWO SITTINGS", "THREE SITTINGS", "FOUR SITTINGS"];
-    label(ctx, words[show - 1], w / 2, h * 0.82, type, AMBER);
+    label(ctx, words[show - 1], w / 2, h - cap * 0.65, cap, AMBER);
   }
 
   function quote(ctx, w, h, t) {
     const turnLen = 2.2;
     const turn = Math.floor(wrap(t, turnLen * 16) / turnLen);
     const p = wrap(t, turnLen) / turnLen;
-    const type = Math.max(16, Math.min(24, h * 0.22));
-    const ground = h * 0.74;
-    const rimX = w * 0.88;
-    const rimY = h * 0.36;
-    const rimW = Math.min(26, h * 0.3);
+    const type = fit(ctx, "ONE PROBLEM", w * 0.42, Math.min(13, h * 0.18), 8);
+    const countSize = fit(ctx, "16 OF 16", w * 0.42, Math.min(14, h * 0.2), 8);
+    ctx.font = `500 ${type}px "DM Mono", ui-monospace, monospace`;
+    const gutter = Math.min(w * 0.46, ctx.measureText("ONE PROBLEM").width + 12);
+    const playL = gutter;
+    const playW = Math.max(40, w - playL - 6);
+    const X = (u) => playL + u * playW;
+    const ground = h * 0.72;
+    const rimX = X(0.86);
+    const rimY = h * 0.28;
+    const rimW = Math.min(18, h * 0.22, playW * 0.12);
 
     ctx.strokeStyle = "rgba(244,239,230,0.35)";
     ctx.lineWidth = 2;
@@ -535,12 +560,12 @@
     ctx.strokeStyle = "rgba(244,239,230,0.22)";
     ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.moveTo(w * 0.34, ground);
+    ctx.moveTo(X(0.08), ground);
     ctx.lineTo(rimX + rimW, ground);
     ctx.stroke();
 
-    [0.4, 0.54, 0.67].forEach((spot, i) => {
-      const x = w * spot;
+    [0.16, 0.4, 0.62].forEach((spot, i) => {
+      const x = X(spot);
       const on = i === 0;
       const rise = on ? Math.sin(Math.min(p, 0.34) / 0.34 * Math.PI) * h * 0.1 : 0;
       ctx.fillStyle = on ? AMBER : "rgba(244,239,230,0.3)";
@@ -560,14 +585,14 @@
     if (shoot > 0.02 && shoot < 0.98) {
       ball(
         ctx,
-        lerp(w * 0.42, rimX, shoot),
+        lerp(X(0.2), rimX, shoot),
         lerp(ground - h * 0.32, rimY - 2, shoot) - Math.sin(shoot * Math.PI) * h * 0.2,
         Math.max(6, h * 0.08)
       );
     }
 
-    label(ctx, `${turn + 1} OF 16`, w * 0.03, h * 0.32, type, "#f4efe6", "left");
-    label(ctx, "ONE PROBLEM", w * 0.03, h * 0.32 + type * 1.2, type * 0.72, AMBER, "left");
+    label(ctx, `${turn + 1} OF 16`, 2, h * 0.34, countSize, "#f4efe6", "left");
+    label(ctx, "ONE PROBLEM", 2, h * 0.34 + countSize * 1.15, type, AMBER, "left");
   }
 
   function hoursOf(raw) {

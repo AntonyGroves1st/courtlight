@@ -122,16 +122,18 @@ body.app::before {
 
 .reel h1, .page-title h1 {
   margin: 0;
-  max-width: 12ch;
-  font-size: clamp(3rem, 5.4vw, 5.4rem);
-  line-height: 0.88;
+  max-width: none;
+  white-space: nowrap;
+  font-size: clamp(1.35rem, calc((100vw - 470px) / 16), 4.6rem);
+  line-height: 1;
   color: #f4efe6;
 }
 
 .reel h1 {
-  max-width: 11ch;
-  font-size: clamp(3.6rem, 6.2vw, 6.4rem);
+  max-width: none;
+  font-size: clamp(1.15rem, 4.4cqi, 3.2rem);
 }
+.reel > div:first-child { container-type: inline-size; }
 .reel-line {
   margin: 0.45rem 0 0;
   max-width: 16ch;
@@ -405,13 +407,15 @@ body.app::before {
   flex-direction: column;
   min-height: 0;
   height: 100%;
+  container-type: inline-size;
 }
 
 .coach-copy h1 {
-  max-width: 9ch;
+  max-width: none;
   margin: 0;
-  font-size: clamp(3rem, 5.4vh, 5rem);
-  line-height: 0.9;
+  white-space: nowrap;
+  font-size: clamp(1.3rem, 7.4cqi, 3.1rem);
+  line-height: 1;
   color: #f4efe6;
 }
 
@@ -712,25 +716,27 @@ body.app::before {
 
 .fee-row > div {
   display: grid;
-  grid-template-columns: minmax(14rem, 0.9fr) minmax(16rem, 1.3fr);
-  column-gap: 0.8rem;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.95fr);
+  column-gap: 0.7rem;
   align-items: center;
   min-width: 0;
   min-height: 0;
 }
-.fee-row h2, .fee-row p { grid-column: 1; }
+.fee-row h2, .fee-row p { grid-column: 1; min-width: 0; }
 .fee-row .film {
   grid-column: 2;
   grid-row: 1 / span 2;
   display: block;
   width: 100%;
+  max-width: 100%;
   height: 100%;
-  min-height: 76px;
+  min-width: 0;
+  min-height: 0;
   flex: none;
 }
 .film { min-height: 120px; }
 .fee-row .film { min-height: 0; max-height: 100%; }
-.fee-row { overflow: hidden; }
+.fee-row { overflow: visible; }
 .clock .film { flex: 1; height: auto; min-height: 168px; }
 .rooms .film { flex: none; width: 100%; height: 100%; min-height: 160px; }
 .price-card .film { flex: 1; height: auto; min-height: 150px; }
@@ -810,8 +816,13 @@ body.app::before {
 .sess.is-held { opacity: 0.4; }
 .sunday-col strong { display: block; font-family: var(--serif); font-weight: 400; font-size: 2.6rem; color: #f0b27a; }
 
-.price-layout { display: grid; gap: 1.2rem; margin-top: 0.8rem; align-items: stretch; }
-.stage:has(.price-layout) { height: 100dvh; overflow: hidden; }
+.price-layout { display: grid; gap: 1.2rem; margin-top: 0.8rem; align-items: stretch; min-width: 0; max-width: 100%; }
+.fees, .fee-row, .price-card { min-width: 0; max-width: 100%; }
+.stage:has(.price-layout) { min-height: 100dvh; height: auto; overflow-x: hidden; }
+.stage:has(.price-layout) .page-title h1 { font-size: clamp(1.35rem, calc((100vw - 470px) / 18), 4rem); }
+.stage:has(.price-layout) .fee-row h2 { font-size: clamp(1.35rem, 1.5vw, 1.7rem); }
+.stage:has(.price-layout) .fee-row p { font-size: clamp(0.98rem, 1.05vw, 1.12rem); line-height: 1.25; }
+.stage:has(.price-layout) .fee-row strong { font-size: clamp(1.8rem, 2.2vw, 2.4rem); }
 .stage:has(.price-layout) > main { min-height: 0; }
 
 .price-card {
@@ -1119,19 +1130,20 @@ body.app .board-filters .chip[aria-pressed="true"] {
   .stage-fill .rooms .film { width: 100%; height: 100%; min-height: 140px; }
   .stage-fill .rooms a:hover { border-color: rgba(224, 122, 47, 0.7); }
   .stage-fill .week-board { flex: 1; align-content: stretch; }
-  .stage-fill .price-layout { flex: 1; min-height: 0; align-items: stretch; grid-template-rows: minmax(0, 1fr); }
-  .stage-fill .price-card { min-height: 0; display: flex; flex-direction: column; }
-  .stage-fill .rate-notes { margin-top: 0.6rem; }
+  .stage-fill .price-layout { flex: none; min-height: 0; align-items: stretch; }
+  .stage-fill .price-card { min-height: 0; display: flex; flex-direction: column; overflow: visible; }
+  .stage-fill .rate-notes { margin-top: 0.35rem; }
+  .stage-fill .rate-notes li { padding: 0.22rem 0; }
   .stage-fill .fees {
     display: grid;
-    grid-template-rows: repeat(5, minmax(0, 1fr));
+    grid-template-rows: none;
     min-height: 0;
     align-self: stretch;
   }
-  .stage-fill .fee-row { min-height: 0; align-items: stretch; }
+  .stage-fill .fee-row { min-height: 96px; align-items: center; }
   .stage-fill .fee-row > div { min-height: 0; }
   .stage-fill .fee-row .film { grid-column: 2; grid-row: 1 / span 2; width: 100%; height: 100%; min-height: 0; }
-  .stage-fill .price-card .film { flex: 1; height: auto; min-height: 140px; }
+  .stage-fill .price-card .film { flex: none; height: 210px; min-height: 210px; max-height: none; }
   .stage-fill .book-layout { flex: 1; }
 }
 
@@ -1158,6 +1170,10 @@ body.app .board-filters .chip[aria-pressed="true"] {
   .stage { margin-left: 0; padding-top: 4.2rem; }
   .page-title { grid-template-columns: 1fr; }
   .page-title .still { justify-self: start; }
+  .reel h1, .page-title h1, .coach-copy h1 {
+    white-space: nowrap;
+    font-size: clamp(1.05rem, 4.6vw, 2.2rem);
+  }
   .profile { grid-template-columns: 1fr; }
   .coach-hero { grid-template-columns: 1fr; }
   .coach-figure { height: 82vh; min-height: 520px; }
