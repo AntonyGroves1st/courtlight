@@ -344,9 +344,11 @@
     const numSize = Math.max(14, Math.min(20, Math.min(w, h) * 0.055));
     const numGap = numSize + 14;
     const r = Math.max(78, Math.min(w * 0.5 - numGap - 6, h * 0.5 - numGap - 18));
-    const turn = wrap(t, 9) / 9;
-    const session = Math.min(7, Math.floor(turn * 8));
-    const local = (turn * 8) % 1;
+    const sitting = 3.2;
+    const turn = wrap(t, sitting * 8);
+    const session = Math.min(7, Math.floor(turn / sitting));
+    const local = (turn % sitting) / sitting;
+    const minute = Math.min(50, Math.max(5, Math.round(local * 50 / 5) * 5));
 
     const glow = ctx.createRadialGradient(cx, cy, r * 0.2, cx, cy, r * 1.15);
     glow.addColorStop(0, "rgba(224, 122, 47, 0.2)");
@@ -450,7 +452,7 @@
     let top = cy - stack / 2 + r * 0.06;
     label(ctx, `${session + 1} OF 8`, cx, top + ofSize / 2, ofSize, "#f4efe6");
     top += ofSize + gap;
-    label(ctx, "50", cx, top + big / 2, big, AMBER);
+    label(ctx, String(minute), cx, top + big / 2, big, AMBER);
     top += big + gap;
     label(ctx, "MINUTES", cx, top + minSize / 2, minSize, CREAM);
   }
