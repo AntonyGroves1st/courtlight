@@ -190,8 +190,7 @@
       ctx.strokeRect(x, y, fw, fh);
       if (on) {
         const word = i % 2 ? "KEEP" : "RETIRE";
-        const size = fit(ctx, word, Math.max(8, fw - 8), Math.min(18, Math.max(10, fh * 0.42)), 8);
-        label(ctx, word, x + fw / 2, y + fh / 2, size, AMBER);
+        label(ctx, word, x + fw / 2, y + fh / 2, Math.max(13, Math.min(22, fh * 0.28)), AMBER);
         ctx.fillStyle = AMBER;
         ctx.fillRect(x, y + fh - 3, fw * wrap(t, 0.8) / 0.8, 3);
       }
