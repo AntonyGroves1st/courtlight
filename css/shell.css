@@ -1347,6 +1347,19 @@ body[data-page="schedule"] .week-board {
 body[data-page="book"] .book-layout {
   padding: 1rem 1.05rem 1.15rem;
 }
+body[data-page="home"] .reel,
+body[data-page="home"] .contents {
+  background: #100e0c;
+}
+body[data-page="home"] .reel {
+  margin-top: 0.4rem;
+  padding: 1rem 1.05rem 0.35rem;
+}
+body[data-page="home"] .contents,
+body[data-page="home"] .stage-fill .contents {
+  margin-top: 0;
+  padding: 0.35rem 1.05rem 1.15rem;
+}
 
 .order-cart {
   margin-top: auto;
