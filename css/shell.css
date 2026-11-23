@@ -58,6 +58,8 @@ body.app:not([data-page="coach"]) .dock {
   display: flex;
   flex-direction: column;
   padding: 0.9rem 0.7rem 0.75rem;
+  overflow-x: hidden;
+  overflow-y: auto;
   background: rgba(9, 8, 7, 0.94);
   border-right: 1px solid rgba(224, 122, 47, 0.38);
   box-shadow: 16px 0 50px rgba(0, 0, 0, 0.35);
@@ -1180,10 +1182,15 @@ body.app .board-filters .chip[aria-pressed="true"] {
     background: rgba(0, 0, 0, 0.28);
   }
   .stage-fill .rooms a > b { margin-top: auto; padding-top: 0.35rem; }
-  body[data-page="programs"] main { width: 100%; max-width: 980px; }
+  body[data-page="programs"] main,
+  body[data-page="programs"] .top-row,
+  body[data-page="programs"] .rooms { width: 100%; max-width: none; }
   body[data-page="programs"] .top-row .still img {
+    width: 100%;
     height: auto;
     aspect-ratio: 3 / 4;
+    max-height: 68vh;
+    object-fit: cover;
     object-position: center 18%;
   }
   .stage-fill .rooms a:hover { border-color: rgba(224, 122, 47, 0.7); }
