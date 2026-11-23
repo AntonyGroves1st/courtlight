@@ -1297,6 +1297,14 @@ body[data-page="pricing"] .stage-fill .price-card .film {
   max-height: none;
 }
 
+body[data-page="pricing"] .price-layout {
+  background: #100e0c;
+  padding: 1rem 1.05rem 1.15rem;
+}
+body[data-page="pricing"] .price-card {
+  background: #100e0c;
+}
+
 .order-cart {
   margin-top: auto;
   padding-top: 0.85rem;
