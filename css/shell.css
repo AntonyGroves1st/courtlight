@@ -1175,7 +1175,8 @@ body.app .board-filters .chip[aria-pressed="true"] {
     background: rgba(0, 0, 0, 0.28);
   }
   .stage-fill .rooms a > b { margin-top: auto; padding-top: 0.35rem; }
-  body[data-page="programs"] .top-row .still img { height: 210px; }
+  body[data-page="programs"] .top-row .still img { height: 280px; }
+  body[data-page="programs"] .top-row figure:nth-child(3) img { object-position: 32% 16%; }
   .stage-fill .rooms a:hover { border-color: rgba(224, 122, 47, 0.7); }
   .stage-fill .week-board { flex: 1; align-content: stretch; }
   .stage-fill .price-layout { flex: none; min-height: 0; align-items: stretch; }
